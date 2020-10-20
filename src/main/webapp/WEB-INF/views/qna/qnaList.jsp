@@ -7,26 +7,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../template/bootStrap.jsp"></c:import>
-<style type="text/css">
-	table {
-	margin-top: 10px;
-}
 
-	.c1{
-		cursor: pointer;
-	}
+<style type="text/css">
+			table {
+	margin-top: 10px;
+				}
 </style>
+
 </head>
 <body>
 
 <c:import url="../template/header.jsp"></c:import>
 
-  
+
 <div class="container">
-  <h3>Notice List</h3>
+  <h3>QnA List</h3>
   <div class="row">
   <div class="col-sm-8">
-  <form action="./noticeList" id="searchForm">
+  <form action="./qnaList" id="searchForm">
   	<input type="hidden" name="curPage" id="curPage">
   	 <div class="input-group">
     	  <select class="input-group-sm" id="kind" name="kind">
@@ -55,58 +53,19 @@
   			<td>Date</td>
   			<td>Hit</td>
   		</tr>
-  		<c:forEach items="${lists}" var="dto" varStatus="vs">
+  		<c:forEach items="${list}" var="dto" varStatus="vs">
   		<tr>
   			<td>${dto.num}	: ${vs.index}</td>
-  			<td><a href="./noticeSelect?num=${dto.num}">${dto.title}</a></td>
+  			<td><a href="./qnaSelect?num=${dto.num}">${dto.title}</a></td>
   			<td>${dto.writer}</td>
-  			<td>${dto.regdate}</td>
+  			<td>${dto.regDate}</td>
   			<td>${dto.hit}</td>
   		<tr>
   		</c:forEach>
   </table>
   </div>
   
-  <div>
- 	 <c:if test="${pager.beforeCheck}">
-  		<span class="c1" title="${pager.startNum-1}">[이전]</span>
- 	 </c:if>
-  
-  	<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-  		<span class="c1" title="${i}">${i}</span>
-  	</c:forEach> 
-  	
- 	<c:if test="${pager.nextCheck}">
-  		<span class="c1" title="${pager.lastNum+1}">[다음]</span>
-  	</c:if>
-  </div>
-  
- 
-  
-  <a href="./noticeWrite" class="btn btn-default">Write</a>
-  
-  <script type="text/javascript">
-		var kind = '${pager.kind}';
-		var search = '${pager.search}';
-		
-		if(kind==''){
-			kind='tt';
-		}
-  
-	$("#kind").val(kind);
-	$("#search").val(search);
-	
+  <a href="./qnaWrite" class="btn btn-default">Write</a>
 
-  	$(".c1").click(function() {
-  		var c = $(this).attr("title");
-		$("#curPage").val(c);	
-		$("#kind").val(kind);
-  		$("#search").val(search);
-		$("#searchForm").submit();
-	});
-  </script>
-  
-  
-</div>
 </body>
 </html>

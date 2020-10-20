@@ -21,7 +21,7 @@
   <p>The .navbar-right class is used to right-align navigation bar buttons.</p>
   
   <div>
-  	<img alt="main Image" src="./resources/images/2.jpg">
+  	<img alt="main Image" src="./resources/images/3.jpg">
   </div>
 </div>
 </body>
