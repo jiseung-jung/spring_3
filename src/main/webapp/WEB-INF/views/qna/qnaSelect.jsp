@@ -29,6 +29,7 @@
   <hr>
   		<input type="button" title="${dto.num}" value="Delete" class="btn btn-default" id="del">
 		<input type="button" value="Update" class="btn btn-default" id="upd">
+		<a href="./qnaReply?num=${dto.num}" class="btn btn-default">Reply</a>
 </div>
 
 	<script type="text/javascript">

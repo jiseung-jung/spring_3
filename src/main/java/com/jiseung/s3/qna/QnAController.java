@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jiseung.s3.util.Pager;
+
 @Controller
 @RequestMapping(value = "/qna/**")
 public class QnAController {
@@ -17,11 +19,12 @@ public class QnAController {
 	private QnAService qnaService; 
 	
 	@RequestMapping(value = "qnaList")
-	public ModelAndView qnaList() throws Exception{
-		List<QnADTO> ar = qnaService.qnaList();
+	public ModelAndView qnaList(Pager pager) throws Exception{
+		List<QnADTO> ar = qnaService.qnaList(pager);
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("list", ar);
+		mv.addObject("pager", pager);
 		mv.setViewName("qna/qnaList");
 		
 		return mv;
@@ -101,16 +104,32 @@ public class QnAController {
 		return mv;
 	}
 	
+	//------------------------------------------------------------------------------
 
+	@RequestMapping(value = "qnaReply")
+	public void qnaReply() throws Exception {
+	
+	}
+	
+	@RequestMapping(value = "qnaReply", method = RequestMethod.POST)
+	public ModelAndView qnaReply(QnADTO qnaDTO) throws Exception {
+		int result = qnaService.qnaReply(qnaDTO);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		String msg = "Reply Write Fail";
+		
+		if(result>0) {
+			msg="Reply Write Success";
+		}
+		
+		mv.setViewName("common/result");
+		mv.addObject("msg", msg);
+		mv.addObject("path", "./qnaList");
+		
+		return mv;
+	}
 }
-
-
-
-
-
-
-
-
 
 
 

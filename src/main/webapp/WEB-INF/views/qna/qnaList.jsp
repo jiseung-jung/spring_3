@@ -12,6 +12,10 @@
 			table {
 	margin-top: 10px;
 				}
+				
+			.c1{
+			cursor: pointer;
+			}	
 </style>
 
 </head>
@@ -55,8 +59,11 @@
   		</tr>
   		<c:forEach items="${list}" var="dto" varStatus="vs">
   		<tr>
-  			<td>${dto.num}	: ${vs.index}</td>
-  			<td><a href="./qnaSelect?num=${dto.num}">${dto.title}</a></td>
+  			<td>${dto.num}	: ${vs.first}</td>
+  			<td><a href="./qnaSelect?num=${dto.num}">
+  				<c:forEach begin="1" end="${dto.depth}">--</c:forEach>
+  			${dto.title}</a></td>
+  			
   			<td>${dto.writer}</td>
   			<td>${dto.regDate}</td>
   			<td>${dto.hit}</td>
@@ -65,7 +72,46 @@
   </table>
   </div>
   
+   <div>
+ 	 <c:if test="${pager.beforeCheck}">
+  		<span class="c1" title="${pager.startNum-1}">[이전]</span>
+ 	 </c:if>
+  
+  	<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+  		<span class="c1" title="${i}">${i}</span>
+  	</c:forEach> 
+  	
+ 	<c:if test="${pager.nextCheck}">
+  		<span class="c1" title="${pager.lastNum+1}">[다음]</span>
+  	</c:if>
+  </div>
+  
+ 
+  <hr>
   <a href="./qnaWrite" class="btn btn-default">Write</a>
+  
+  <script type="text/javascript">
+		var kind = '${pager.kind}';
+		var search = '${pager.search}';
+		
+		if(kind==''){
+			kind='tt';
+		}
+  
+	$("#kind").val(kind);
+	$("#search").val(search);
+	
+
+  	$(".c1").click(function() {
+  		var c = $(this).attr("title");
+		$("#curPage").val(c);	
+		$("#kind").val(kind);
+  		$("#search").val(search);
+		$("#searchForm").submit();
+	});
+  </script>
+  
+  
 
 </body>
 </html>

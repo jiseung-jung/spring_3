@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jiseung.s3.util.Pager;
+
 @Repository
 public class QnADAO {
 	
@@ -13,8 +15,13 @@ public class QnADAO {
 	private SqlSession sqlSession;
 	private String namespace="com.jiseung.s3.qna.QnADAO.";
 	
-	public List<QnADTO> qnaList() throws Exception {
-		return sqlSession.selectList(namespace+"qnaList");
+	public List<QnADTO> qnaList(Pager pager) throws Exception {
+		return sqlSession.selectList(namespace+"qnaList", pager);
+	}
+	
+	//count
+	public long qnaCount(Pager pager) throws Exception{
+		return sqlSession.selectOne(namespace+"qnaCount", pager);
 	}
 	
 	public QnADTO qnaSelect(long num) throws Exception{
@@ -24,6 +31,18 @@ public class QnADAO {
 	public int qnaWrite(QnADTO qnaDTO) throws Exception{
 		return sqlSession.insert(namespace+"qnaWrite", qnaDTO);
 	}
+	
+	//Reply -------------------------------------------------------------------
+	
+	public int qnaReply(QnADTO qnaDTO) throws Exception{
+		return sqlSession.insert(namespace+"qnaReply", qnaDTO);
+	}
+	
+	public int qnaReplyUpdate(QnADTO qnaDTO) throws Exception {
+		return sqlSession.update(namespace+"qnaReplyUpdate", qnaDTO);
+	}
+	
+	//-------------------------------------------------------------------------
 	
 	public int qnaDelete(long num) throws Exception{
 		return sqlSession.delete(namespace+"qnaDelete", num);
