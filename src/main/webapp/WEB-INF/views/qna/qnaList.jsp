@@ -56,6 +56,9 @@
   			<td>Writer</td>
   			<td>Date</td>
   			<td>Hit</td>
+  			<td>Ref</td>
+  			<td>Step</td>
+  			<td>Depth</td>
   		</tr>
   		<c:forEach items="${list}" var="dto" varStatus="vs">
   		<tr>
@@ -67,6 +70,9 @@
   			<td>${dto.writer}</td>
   			<td>${dto.regDate}</td>
   			<td>${dto.hit}</td>
+  			<td>${dto.ref}</td>
+  			<td>${dto.step}</td>
+  			<td>${dto.depth}</td>
   		<tr>
   		</c:forEach>
   </table>
